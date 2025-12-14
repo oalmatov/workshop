@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- This controls the title of the page (title that you see in your tabs)-->
+  <title>Advent Calendar Skeleton</title>
+  <style>
+    /* You can add custom fonts like this */
+    /* You can access a font that you defined like this: `font-family: "Roadam";` */
+    /* Try changing a font somawhere in the code to see how it affects the design */
+    @font-face {
+      font-family: "Roadam";
+      src: url("Roadam.otf");
+    }
+
+    :root {
+      /* You can define variables that you would want to reuse here */
+      /* You can access them in your css by using var(--var-name), e.g. var(--gap) */
+      /* This is useful when you want some consistency in your design */
+      --gap: 12px;
+      --num-cols: 3;
+      --min-cell-size: 150px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* At some point in your journey you will realize that you wanna position things more freely on the page */
+    /* Do do so you will need ot learn how to use things like flexbox, grid, and positioning */
+    /* For the sake of simplicity, I have not included how to use these tools in this workshop */
+    /* If you are curious check out these resources:
+        - flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+        - grid: https://css-tricks.com/snippets/css/complete-guide-grid/
+        - positioning: https://css-tricks.com/almanac/properties/p/position/
+       These links break down these concepts better thank I can.
+    */
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 32px;
+    }
+
+    .calendar {
+      width: min(1100px, 100%);
+      /* Here is the aformentioned grid that I used to create the calendar */
+      display: grid;
+      margin: auto;
+      grid-template-columns: repeat(var(--num-cols), minmax(var(--min-cell-size), 1fr));
+      gap: var(--gap);
+    }
+
+    /* This is how you can change the size of the grid and number of columsn for different screen size */
+    /* For more resources: https://www.w3schools.com/css/css3_mediaqueries.asp */
+    @media (max-width: 428px) {
+      .calendar {
+        grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
+      }
+    }
+
+    /* Basic styles for the skeleton code */
+    /* Feel free to mess around */
+    .day {
+      position: relative;
+    }
+
+    .day input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      transition: transform 150ms ease;
+      overflow: hidden;
+      border: 1px solid currentColor;
+    }
+
+    /* This adds a hover animation to the card */
+    /* You can make it something more cute, like add a slight rotation */
+    /* For more resources: https://www.w3schools.com/cssref/css3_pr_transform.php */
+    .card:hover,
+    .card:focus-visible {
+      transform: scale(1.05);
+    }
+
+    .day-number {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .popover {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 150ms ease;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    .popover-inner {
+      width: min(520px, 100%);
+      background: #fff;
+      border: 1px solid currentColor;
+      padding: 24px;
+      transform: translateY(8px) scale(0.98);
+      transition: transform 180ms ease;
+      position: relative;
+    }
+
+    .popover header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .popover-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .popover label.close {
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .popover p {
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
+    /* To learn more about css selectors: https://www.w3schools.com/cssref/css_selectors.php */
+    /* To learn more about combinators such as ~: https://www.w3schools.com/cssref/css_ref_combinators.php */
+    /* You can do some very clever things with css selectors and combinators but it is not a requirement to make cute stuff. */
+    /* This translates to the sibling of the input that's disabled with classname card */
+    input:disabled~.card {
+      opacity: 0.5;
+    }
+
+    .day input:checked~.popover {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .day input:checked~.popover .popover-inner {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Example of how to tweak the styles of a specific day */
+    .day-14 .card {
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <main aria-label="Advent Calendar" style="padding: 50px; border: 1px dotted cyan">
+    <!-- You can also add inline styles like this instead of using css selectors -->
+    <h1 style="color: cyan; text-align: center; font-style: italic">my boring advent calendar :(</h1>
+    <div class="calendar">
+      <div class="day day-14" data-day="14">
+        <input type="checkbox" id="day-14-toggle" aria-label="Open day 14">
+        <label class="card" for="day-14-toggle">
+          <!-- URLs are relative to the root of the website. -->
+          <!-- You can break apart lines so that they are easier to read. -->
+          <img src="bunny trinket.png" alt="A white ceramic plate shaped like a bunny."
+            style="width: var(--min-cell-size)" />
+        </label>
+        <!-- aria-live="polite" is for screen readers to know when to read popover text. -->
+        <div class="popover" aria-live="polite">
+          <div class="popover-inner" style="width: 400px">
+            <header>
+              <div class="popover-title">Day 14</div>
+              <label class="close" for="day-14-toggle">Close</label>
+            </header>
+            <p>Repeat this once</p>
+            <p>Now repeat this twice</p>
+            <p>Something only happens once</p>
+            <p>Until it happens twice</p>
+            <!-- This is how you can add links -->
+            <a href="https://swanchime.itch.io/count-kagura" style="text-align: right">- Count Kagura</a>
+            <!-- You can also add links to your custom pages -->
+            <!-- If you had a page some-name.html at the root of this folder and access it like this <a href=some-name.html">my link</a> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Skeleton for the future days -->
+      <div class="day day-15" data-day="15">
+        <input type="checkbox" id="day-15-toggle" aria-label="Open day 15">
+        <label class="card" for="day-15-toggle">
+          <span class="day-number">15</span>
+        </label>
+        <div class="popover" aria-live="polite">
+          <div class="popover-inner">
+            <header>
+              <div class="popover-title">Day 15</div>
+              <label class="close" for="day-15-toggle">Close</label>
+            </header>
+            <p>Try adding something here</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="day day-16" data-day="16">
+        <!-- Remove the disabled attribute when you are ready to unlock the day -->
+        <input type="checkbox" id="day-16-toggle" aria-label="Open day 16" disabled>
+        <label class="card" for="day-16-toggle">
+          <span class="day-number">16</span>
+        </label>
+        <div class="popover" aria-live="polite">
+          <!-- Remember that anyone can view the inner html of your page when you publish it!-->
+          <!-- This popover should be empty or else you will spill all your beans -->
+          <div class="popover-inner">
+            <header>
+              <div class="popover-title">Day 16</div>
+              <label class="close" for="day-16-toggle">Close</label>
+            </header>
+            <p>Super Secret Content</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- You can keep adding more days -->
+      <!-- They don't even have to be in the calendar -->
+      <!-- You can place them freely however you'd like -->
+    </div>
+  </main>
+</body>
+
+</html>
