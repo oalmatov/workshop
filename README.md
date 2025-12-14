@@ -1,6 +1,18 @@
-# Intro to HTML/CSS
+# Decolonizing Technology and Building the Small Internet
+
+The goal of this workshop is to start rebuilding our capacity for imagining what technology can be.
+
+
+## Small internet today
+
+- [Monastery of Blamensir](https://blamensir.neocities.org/)
+- [Count Kagurasuzu](https://swanchime.itch.io/count-kagura)
+- [Neocities](https://neocities.org/)
 
 ## Setup
+
+Currently the setup instructions assume that you have access to a Mac. I will add setup for Linux and Windows if there is demand.
+
 ### Track 1: Indiviual, deploy on personal neocities website
 
 This track lets you download the skeleton code and start editing and publishing
@@ -26,7 +38,7 @@ Some options you might want to consider:
 3. VIM - https://www.vim.org/download.php
 
 #### GitHub
-1. Create a GitHub account. Github is a platform that allows you to store, share, an collaborate on code.
+1. Create a GitHub account. Github is a platform that allows you to store, share, and collaborate on code.
 2. Install brew. Brew is a package manager that makes it easy to install and update software on your Mac. You can do this by running this command in your terminal:
     ```
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
